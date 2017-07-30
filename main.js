@@ -151,11 +151,11 @@ var bgAudio = new Audio("bgSoundLoop.wav");
 var hitAudio = new Audio("hitAudio.wav");
 var burnAudio = new Audio("burnAudio.wav");
 function load() {
-	earthImg = new Image();
-    earthImg.src = "earth.png";
-    earthImg.onload = function() {
-      checkImagesToLoad();
-    };
+	// earthImg = new Image();
+ //    earthImg.src = "earth.png";
+ //    earthImg.onload = function() {
+       checkImagesToLoad();
+ //    };
     menuTicker = window.setInterval(menuTick,50);
     //var audio = new Audio('bgSoundLoop.wav');
     

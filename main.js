@@ -752,7 +752,7 @@ function drawHealth() {
 	ctxBG.lineWidht="5px";
 	let sL = bw - width/6;
 
-	ctxBG.fillRect(sL,20,(width/3)*(health/maxHealth),50);
+	ctxBG.fillRect(sL,20,(width/3)*Math.max(0,(health/maxHealth)),50);
 	ctxBG.strokeRect(sL,20,width/3,50);
 	ctxBG.font = "25px 'Anton'";
 	let tx = health+"/"+maxHealth;
@@ -909,9 +909,9 @@ function render(doneTicks) {
 			rGr3.addColorStop(0.8,"rgba(0,0,0,0.5)");
 			rGr3.addColorStop(1,"rgba(0,0,0,0.5)");
 		} else {
-			rGr3.addColorStop(0,"rgba("+Math.floor(255-255*(endScreenTicker+1)/endScreenTick)+","+
-										Math.floor(255-255*(endScreenTicker+1)/endScreenTick)+","+
-										Math.floor(255-255*(endScreenTicker+1)/endScreenTick)+",0.5)");
+			rGr3.addColorStop(0,"rgba("+Math.floor(255-255*(endScreenTicker+1)/(endScreenTick+1))+","+
+										Math.floor(255-255*(endScreenTicker+1)/(endScreenTick+1))+","+
+										Math.floor(255-255*(endScreenTicker+1)/(endScreenTick+1))+",0.5)");
 			rGr3.addColorStop(0.8,"rgba(0,0,0,0.5)");
 			rGr3.addColorStop(1,"rgba(0,0,0,0.5)");
 		}
@@ -962,11 +962,11 @@ function render(doneTicks) {
 //			//	lrGr.addColorStop(1  , "rgba( 150,   150,   0,  0.3)");
 			//}
 		} else {
-			lrGr.addColorStop(0  , "rgba(250,0,0,    "+(0.3-(0.299*endScreenTicker/endScreenTick))+")");
+			lrGr.addColorStop(0  , "rgba(250,0,0,    "+(0.3-(0.299*(1+endScreenTicker)/(1+endScreenTick)))+")");
 			// lrGr.addColorStop(0.2, "rgba(150,150,0"+(,  -(0.299*endScreenTicker/endScreenTick))+"0.3)");
-			lrGr.addColorStop(0.5, "rgba(150,150,0,  "+(0.3-(0.299*endScreenTicker/endScreenTick))+")");
+			lrGr.addColorStop(0.5, "rgba(150,150,0,  "+(0.3-(0.299*(1+endScreenTicker)/(1+endScreenTick)))+")");
 			// lrGr.addColorStop(0.7, "rgba(150,150,0"+(,  -(0.299*endScreenTicker/endScreenTick))+"0.3)");
-			lrGr.addColorStop(1  , "rgba(0,0,100,    "+(0.3-(0.299*endScreenTicker/endScreenTick))+")");
+			lrGr.addColorStop(1  , "rgba(0,0,100,    "+(0.3-(0.299*(1+endScreenTicker)/(1+endScreenTick)))+")");
 		}
 		ctxBG.fillStyle=lrGr;
 		ctxBG.fill();
@@ -1007,6 +1007,10 @@ function render(doneTicks) {
 		let rGr = ctxBG.createRadialGradient(newX,newY,0,newX,newY,2*earthHeight);
 		if (!endScreen) {
 			rGr.addColorStop(0,"rgba(0,0,255,1");
+			rGr.addColorStop(0.5,"rgba(0,0,0,1)");
+			rGr.addColorStop(1,"rgba(0,0,0,1)");
+		} else {
+			rGr.addColorStop(0,"rgba(0,0,"+Math.floor(255-254*(1+endScreenTicker)/(1+endScreenTick))+",1");
 			rGr.addColorStop(0.5,"rgba(0,0,0,1)");
 			rGr.addColorStop(1,"rgba(0,0,0,1)");
 		}
@@ -1194,7 +1198,7 @@ function WarningMsg(txt) {
 	}
 }
 function gameOver(txt){
-	console.log(Enemies);
+	//console.log(Enemies);
 	endScreen=true;
 	bgAudio.pause();
 	bgPlaying=false;

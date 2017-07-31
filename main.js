@@ -26,6 +26,92 @@ var earthImg;
 var okayDistance = 100;
 var muted=false;
 var bgPlaying = false;
+
+var EnergyUps=[];
+var EnergyUpsDur=50;
+var daysOver=[];
+var daysOverDur=100;
+var hpDowns=[];
+var hpDownsDur=100;
+var Breaking=[];
+
+
+var BurningDur=34;
+var sunPulse = 0;
+var sunPulseStop = 50;
+var sunPulseUp = true;
+var sunFlareUp = false;
+var sunFlare = 0;
+var sunFlareStop = 150; 
+
+var earthFlareUp = false;
+var earthFlare = 0;
+var earthFlareStop = 50;
+var warnTicker = 0;
+var warnTick = 40;
+var sunTooCloseTicker=0;
+var tooCloseTick=100;
+var sunTooFarTicker=0;
+var dayOverReward = 10;
+var endScreenTicker=0;
+var BreakDur2=30;
+var lightings = [];
+var MathPI180 = Math.PI / 180;
+var starAmount = 1000;
+var stars = [];
+var tmpCnv = document.createElement("canvas");
+var lastTick = 0;
+var ticker = 0;
+var doneTicks = 0;
+var days = 0;
+var lastDays = 0;
+var monsCD = 25;
+var monsTicker = -1000;
+var imgData;
+var data;
+var renderTicker = 100;
+var sunHeight = 20;
+var earthHeight = 50;
+var startSunHeight = 20;
+var startEarthHeight = 50;
+var diagLng;
+var Energy=100;
+var maxEnergy=100;
+var EnergyTick=20;
+var EnergyTicker=0;
+var earthTemperature=25;
+var dummyContext = document.createElement("canvas");
+var endScreen=false;
+var donMid = false;
+var doneEnd = false;
+var thePlayer;
+var Enemies = [];
+var debug = false;
+var curLevel = 1;
+var lvlTick = 10;
+var lvlTicker = 0;
+var Power = 1000;
+var maxPower = 1000;
+var shootingStarCD = 10;
+var shootingStarTicker = 0;
+var starRot = 0;
+var starRotSpeed = 0.01;
+var health = 100;
+var maxHealth = 100;
+var currentDayRotate = 0;
+var radius = 10;
+var shapeMons = 5;
+var fuseList=[];
+var toShrink=[];
+var killList=[];
+var menu = true;
+var hotness=0;
+var coldness=0;
+var menuTicker=null;
+var Burning=[];
+var highestPossibleDistance;
+var endScreenTick=250;
+var paused=false;
 function mute() {
 	if (muted) {
 		muted = false;
@@ -53,7 +139,7 @@ function pauseGame() {
 		
 	}
 }
-var Breaking=[];
+
 function drawBreaking() {
 	//superNova();
 	for (let kum = Breaking.length - 1; kum >= 0; kum--) {
@@ -72,12 +158,7 @@ function drawBreaking() {
 
 	}
 }
-var EnergyUps=[];
-var EnergyUpsDur=50;
-var daysOver=[];
-var daysOverDur=100;
-var hpDowns=[];
-var hpDownsDur=100;
+
 function drawEnergy(){
 	for (let key=EnergyUps.length-1;key>=0;key--) {
 		EnergyUps[key][3]++;
@@ -162,7 +243,7 @@ function load() {
 	
 }
 
-var BreakDur2=30;
+
 function drawOneBreaking(key) {
 
 
@@ -296,6 +377,56 @@ function init() {
 	killList=[];
 
 
+
+EnergyUps=[];
+
+daysOver=[];
+
+hpDowns=[];
+
+Breaking=[];
+
+
+BurningDur=34;
+sunPulse = 0;
+sunPulseUp = true;
+sunFlareUp = false;
+sunFlare = 0;
+earthFlareUp = false;
+earthFlare = 0;
+warnTicker = 0;
+sunTooCloseTicker=0;
+sunTooFarTicker=0;
+dayOverReward = 10;
+endScreenTicker=0;
+lightings = [];
+ticker = 0;
+doneTicks = 0;
+days = 0;
+lastDays = 0;
+monsTicker = -1000;
+renderTicker = 100;
+Energy=100;
+maxEnergy=100;
+EnergyTicker=0;
+earthTemperature=25;
+endScreen=false;
+donMid = false;
+doneEnd = false;
+Enemies = [];
+curLevel = 1;
+lvlTicker = 0;
+Power = 1000;
+maxPower = 1000;
+health = 100;
+maxHealth = 100;
+fuseList=[];
+toShrink=[];
+killList=[];
+hotness=0;
+coldness=0;
+Burning=[];
+paused=false;
 
 $(".but").css("display","none");
 	width = window.innerWidth || document.documentElement.clientWidth / 1 || document.body.clientWidth
@@ -496,7 +627,7 @@ function doLightning() {
 		dmgPlayer(-10);
 	}
 }
-var lightings = [];
+
 function addBolt(x1, y1, amount, x2, y2, duration) {
 	x2 = x2 || width/2;
 	y2 = y2 || height/2;
@@ -522,60 +653,6 @@ function drawLightnings() {
 	}
 }
 
-var MathPI180 = Math.PI / 180;
-var starAmount = 1000;
-var stars = [];
-var tmpCnv = document.createElement("canvas");
-var lastTick = 0;
-var ticker = 0;
-var doneTicks = 0;
-var days = 0;
-var lastDays = 0;
-var monsCD = 25;
-var monsTicker = -1000;
-var imgData;
-var data;
-var renderTicker = 100;
-var sunHeight = 20;
-var earthHeight = 50;
-var startSunHeight = 20;
-var startEarthHeight = 50;
-var diagLng;
-var Energy=100;
-var maxEnergy=100;
-var EnergyTick=20;
-var EnergyTicker=0;
-var earthTemperature=25;
-var dummyContext = document.createElement("canvas");
-var endScreen=false;
-var donMid = false;
-var doneEnd = false;
-var thePlayer;
-var Enemies = [];
-var debug = false;
-var curLevel = 1;
-var lvlTick = 10;
-var lvlTicker = 0;
-var Power = 1000;
-var maxPower = 1000;
-var shootingStarCD = 10;
-var shootingStarTicker = 0;
-var starRot = 0;
-var starRotSpeed = 0.01;
-var health = 100;
-var maxHealth = 100;
-var currentDayRotate = 0;
-var radius = 10;
-var shapeMons = 5;
-var fuseList=[];
-var toShrink=[];
-var killList=[];
-var menu = true;
-var hotness=0;
-var coldness=0;
-var menuTicker=null;
-var Burning=[];
-var highestPossibleDistance;
 
 function menuTick() {
 	//console.log("menutick");
@@ -587,8 +664,7 @@ function menuTick() {
 		}
 	}
 }
-var endScreenTick=250;
-var paused=false;
+
 function tick() {
 	var now = window.performance.now(); // current time in ms
 
@@ -806,7 +882,7 @@ function getColor(n, a) {
 	return hslToRgbString(h, s, l, a);
 
 }
-var BurningDur=34;
+
 function drawBurning() {
 	//console.log(Burning);
 	if (Burning.length>0) {
@@ -866,17 +942,6 @@ function drawOneBurn(x,y,lv,dur,back) {
 //	drawCircle(ctxBG,x,y,rad,"rgba(150,150,0,1)");
 	
 }
-
-var sunPulse = 0;
-var sunPulseStop = 50;
-var sunPulseUp = true;
-var sunFlareUp = false;
-var sunFlare = 0;
-var sunFlareStop = 150; 
-
-var earthFlareUp = false;
-var earthFlare = 0;
-var earthFlareStop = 50;
 
 function render(doneTicks) {
 	ctxBG.clearRect(0,0,width,height);
@@ -1183,8 +1248,7 @@ function angle(p1x, p1y, p2x, p2y) {
 	return Math.atan2(p2y - p1y, p2x - p1x);
 
 }
-var warnTicker = 0;
-var warnTick = 40;
+
 function WarningMsg(txt) {
 	if (!endScreen) {
 
@@ -1253,9 +1317,7 @@ function movePlayer() {
 	applyForcePlayer();
 }
 
-var sunTooCloseTicker=0;
-var tooCloseTick=100;
-var sunTooFarTicker=0;
+
 
 function calcForcePlayer() {
 	thePlayer.mot.x *= 0.999;
@@ -1315,7 +1377,7 @@ function calcForcePlayer() {
 		} 
 	}
 }
-var dayOverReward = 10;
+
 function applyForcePlayer() {
 	thePlayer.pos.x += 0.1 * thePlayer.mot.x;
 	thePlayer.pos.y += 0.1 * thePlayer.mot.y;
@@ -1404,7 +1466,7 @@ function drawCircle(contx, x, y, rad, style) {
 	contx.closePath();
 	contx.fill();
 }
-var endScreenTicker=0;
+
 
 function step() {
 	if(warnTicker) {

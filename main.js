@@ -957,9 +957,9 @@ function render(doneTicks) {
 		let radOfEnemy = getRad(Enemies[key].lv);
 		let clrOfEnemy; 
 		if (!endScreen) {
-			clrOfEnemy = getColor(Enemies[key].lv+1,1);
+			clrOfEnemy = getColor(Enemies[key].lv,1);
 		} else {
-			clrOfEnemy = getColor(Enemies[key].lv+1,(1-1*((endScreenTicker+1)/(endScreenTick+1))));
+			clrOfEnemy = getColor(Enemies[key].lv,(1-1*((endScreenTicker+1)/(endScreenTick+1))));
 		}
 
 
@@ -1852,7 +1852,7 @@ function killAndFuse() {
 		let xMotAvg = (Enemies[ind1].mot.x+Enemies[ind2].mot.x) / 2;
 		let yMotAvg = (Enemies[ind1].mot.y+Enemies[ind2].mot.y) / 2;
 		//console.log(xAvg+";"+yAvg+";"+xMotAvg+";"+yMotAvg);
-		toSpwn.push([Enemies[key].lv+1,xAvg,yAvg,xMotAvg,yMotAvg]);
+		toSpwn.push([(Enemies[key].lv+1),xAvg,yAvg,xMotAvg,yMotAvg]);
 	}
 	for (let kur in killList) {
 		toDel.push(killList[kur]);

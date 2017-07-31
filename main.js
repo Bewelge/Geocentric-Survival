@@ -1226,6 +1226,9 @@ function makeBatteryPath() {
 	ctxBG.fillRect(width*0.01,height*0.25+height*0.74*(1-(Energy/maxEnergy)),width*0.1,height*0.74*(Energy/maxEnergy));
 	ctxBG.stroke();
 
+	ctxBG.shadowBlur=0;
+	ctxBG.shadowColor="rgba(0,0,0,0)";
+
 	ctxBG.strokeStyle="rgba(255,255,255,0.1)";
 	ctxBG.lineWidth="50";
 	ctxBG.stroke();
@@ -1233,7 +1236,7 @@ function makeBatteryPath() {
 	ctxBG.restore();
 
 	ctxBG.strokeStyle="rgba(255,255,255,0.3)";
-	ctxBG.lineWidth="10px";
+	ctxBG.lineWidth="10";
 	ctxBG.stroke();
 
 
